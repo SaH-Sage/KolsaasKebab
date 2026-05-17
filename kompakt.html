@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kebab Meny — Poster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #F5C237; --gold-dim: #C49020; --red: #CC2020;
+    --green: #2E9448; --green-dim: #1E6830; --green-text: #5CF07A;
+    --dark: #0C0800; --dark2: #181008; --cream: #FFF4DC; --cream-dim: #C8AA70;
+  }
+  body { background: #200E00; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 32px 16px; font-family: 'Barlow', sans-serif; }
+
+  .poster { width: 900px; background: var(--dark); color: var(--cream); border: 2px solid var(--gold-dim); position: relative; overflow: hidden; }
+  .poster::before { content: ''; position: absolute; top: 10px; left: 10px; width: 70px; height: 70px; border-top: 1.5px solid var(--gold-dim); border-left: 1.5px solid var(--gold-dim); }
+  .poster::after { content: ''; position: absolute; bottom: 10px; right: 10px; width: 70px; height: 70px; border-bottom: 1.5px solid var(--gold-dim); border-right: 1.5px solid var(--gold-dim); }
+  .poster-bg { position: absolute; inset: 0; pointer-events: none; background-image: repeating-linear-gradient(60deg, transparent, transparent 28px, rgba(245,194,55,0.08) 28px, rgba(245,194,55,0.08) 29px), repeating-linear-gradient(-60deg, transparent, transparent 28px, rgba(245,194,55,0.08) 28px, rgba(245,194,55,0.08) 29px); }
+
+  /* HEADER */
+  .header { text-align: center; padding: 24px 40px 18px; border-bottom: 1px solid var(--gold-dim); position: relative; }
+  .header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(245,194,55,0.25) 0%, transparent 70%); }
+  .tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 6px; }
+  .tagline::before, .tagline::after { content: ''; width: 36px; height: 1px; background: var(--gold-dim); display: block; }
+  h1 { font-family: 'Cinzel', serif; font-size: 54px; font-weight: 900; letter-spacing: -1px; line-height: 0.9; color: var(--gold); position: relative; }
+  .subtitle { font-family: 'Cinzel', serif; font-size: 12px; font-weight: 700; letter-spacing: 7px; color: var(--cream-dim); margin-top: 6px; position: relative; }
+
+  /* BODY GRID — 4 columns */
+  .body { padding: 0 22px 20px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0 16px; position: relative; }
+
+  /* vertical dividers */
+  .col-div { position: absolute; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, var(--gold-dim) 8%, var(--gold-dim) 92%, transparent); }
+  .col-div:nth-child(1) { left: calc(25% + 14px); }
+  .col-div:nth-child(2) { left: calc(50% + 8px); }
+  .col-div:nth-child(3) { left: calc(75% + 2px); }
+
+  /* SECTION */
+  .s { padding-top: 16px; }
+  .s-title { font-family: 'Cinzel', serif; font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 0.5px; border-bottom: 1px solid rgba(245,194,55,0.4); padding-bottom: 4px; margin-bottom: 5px; }
+  .s-title.veg { color: var(--green-text); border-bottom-color: rgba(92,240,122,0.55); }
+  .s-mod { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 0.5px; color: var(--cream-dim); margin-bottom: 6px; font-weight: 500; }
+
+  /* Size header row */
+  .rs-head { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 1px; }
+  .rs-head span { font-family: 'Barlow Condensed', sans-serif; font-size: 8.5px; letter-spacing: 1.5px; color: var(--gold-dim); font-weight: 600; min-width: 32px; text-align: right; text-transform: uppercase; }
+
+  /* Two-price row */
+  .row2 { display: flex; justify-content: space-between; align-items: baseline; padding: 2px 0; border-bottom: 1px solid rgba(255,180,50,0.06); }
+  .row2:last-child { border-bottom: none; }
+  .r2n { font-size: 11.5px; flex: 1; color: var(--cream); }
+  .r2p { display: flex; gap: 8px; }
+  .r2v { font-family: 'Barlow Condensed', sans-serif; font-size: 12.5px; font-weight: 700; color: var(--cream); min-width: 32px; text-align: right; }
+  .r2v .kr { font-size: 8.5px; color: var(--cream-dim); font-weight: 500; }
+
+  /* One-price row */
+  .row1 { display: flex; justify-content: space-between; align-items: baseline; padding: 2px 0; border-bottom: 1px solid rgba(255,180,50,0.06); }
+  .row1:last-child { border-bottom: none; }
+  .r1n { font-size: 11.5px; flex: 1; color: var(--cream); }
+  .r1size { font-size: 9px; color: var(--cream-dim); font-family: 'Barlow Condensed'; font-weight: 600; letter-spacing: 0.5px; margin: 0 5px; }
+  .r1v { font-family: 'Barlow Condensed', sans-serif; font-size: 12.5px; font-weight: 700; color: var(--cream); }
+  .r1v .kr { font-size: 8.5px; color: var(--cream-dim); font-weight: 500; }
+
+  /* Burger table: name | burger | middag */
+  .bhead { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 1px; }
+  .bhead span { font-family: 'Barlow Condensed', sans-serif; font-size: 8.5px; letter-spacing: 1.5px; color: var(--gold-dim); font-weight: 600; min-width: 32px; text-align: right; text-transform: uppercase; }
+
+  /* Vegetar sub-label */
+  .sub { font-family: 'Barlow Condensed', sans-serif; font-size: 8.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green-text); opacity: 0.7; margin: 8px 0 2px; }
+
+  /* Vegetar colours */
+  .row2.veg .r2n, .row1.veg .r1n { color: #ddf3e0; }
+  .row2.veg .r2v, .row1.veg .r1v { color: var(--green-text); }
+
+  /* Pizza row */
+  .pizza-row { display: flex; align-items: baseline; justify-content: space-between; padding: 2px 0; border-bottom: 1px solid rgba(255,180,50,0.06); gap: 4px; }
+  .pizza-row:last-child { border-bottom: none; }
+  .pname { font-size: 11.5px; color: var(--cream); flex: 1; }
+  .pname.veg { color: #ddf3e0; }
+  .pdesc { font-size: 9px; color: var(--cream-dim); font-style: italic; flex: 2; padding: 0 6px; }
+  .pprice { font-family: 'Barlow Condensed'; font-size: 12.5px; font-weight: 700; color: var(--gold); white-space: nowrap; }
+  .pprice.veg { color: var(--green-text); }
+  .pprice .kr { font-size: 8.5px; color: var(--cream-dim); font-weight: 500; }
+
+  /* FOOTER */
+  .footer { border-top: 1px solid var(--gold-dim); padding: 9px 22px; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .badge { background: rgba(245,194,55,0.25); border: 1px solid var(--gold-dim); border-radius: 3px; padding: 3px 9px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--gold); white-space: nowrap; }
+  .badge-label { color: var(--cream-dim); font-weight: 500; margin-right: 4px; }
+
+  @media print { body { background: white; padding: 0; } .poster { width: 100%; border: none; } }
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="poster-bg"></div>
+  <div class="header">
+    <div class="tagline">Autentisk · Hjemmelaget · Fersk</div>
+    <h1>KEBAB &amp; GRILL</h1>
+    <div class="subtitle">Fullstendig Meny</div>
+  </div>
+
+  <div class="body">
+    <div class="col-div"></div>
+    <div class="col-div"></div>
+    <div class="col-div"></div>
+
+    <!-- COL 1: Kebab i pita + Rullekebab -->
+    <div>
+      <div class="s">
+        <div class="s-title">Kebab i Pita</div>
+        <div class="s-mod">+Kjøtt 49 kr · +Saus 10 kr</div>
+        <div class="rs-head"><span>Med</span><span>Stor</span></div>
+        <div class="row2"><span class="r2n">Kebab</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>99</span><span class="r2v"><span class="kr">kr</span>149</span></div></div>
+        <div class="row2"><span class="r2n">Kylling</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>124</span><span class="r2v"><span class="kr">kr</span>164</span></div></div>
+        <div class="row2"><span class="r2n">Döner</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>139</span><span class="r2v"><span class="kr">kr</span>189</span></div></div>
+        <div class="row2"><span class="r2n">Biff</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>144</span><span class="r2v"><span class="kr">kr</span>189</span></div></div>
+        <div class="row2"><span class="r2n">Mix i pita</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>144</span><span class="r2v"><span class="kr">kr</span>174</span></div></div>
+      </div>
+      <div class="s">
+        <div class="s-title">Rullekebab</div>
+        <div class="s-mod">+Kjøtt 49 kr · +Saus 10 kr</div>
+        <div class="rs-head"><span>Med</span><span>Stor</span></div>
+        <div class="row2"><span class="r2n">Kebab</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>124</span><span class="r2v"><span class="kr">kr</span>154</span></div></div>
+        <div class="row2"><span class="r2n">Kylling</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>139</span><span class="r2v"><span class="kr">kr</span>169</span></div></div>
+        <div class="row2"><span class="r2n">Döner</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>149</span><span class="r2v"><span class="kr">kr</span>179</span></div></div>
+        <div class="row2"><span class="r2n">Biff</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>149</span><span class="r2v"><span class="kr">kr</span>179</span></div></div>
+        <div class="row2"><span class="r2n">Mix</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>149</span><span class="r2v"><span class="kr">kr</span>169</span></div></div>
+      </div>
+    </div>
+
+    <!-- COL 2: Kebabmiddag + Hamburger -->
+    <div>
+      <div class="s">
+        <div class="s-title">Kebabmiddag</div>
+        <div class="s-mod">+Kjøtt 49 kr · +Saus 10 kr</div>
+        <div class="rs-head"><span>Med</span><span>Stor</span></div>
+        <div class="row2"><span class="r2n">Kebab</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>159</span><span class="r2v"><span class="kr">kr</span>189</span></div></div>
+        <div class="row2"><span class="r2n">Kylling</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>174</span><span class="r2v"><span class="kr">kr</span>199</span></div></div>
+        <div class="row2"><span class="r2n">Döner</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>199</span><span class="r2v"><span class="kr">kr</span>229</span></div></div>
+        <div class="row2"><span class="r2n">Biff</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>199</span><span class="r2v"><span class="kr">kr</span>239</span></div></div>
+        <div class="row2"><span class="r2n">Mix</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>194</span><span class="r2v"><span class="kr">kr</span>219</span></div></div>
+      </div>
+      <div class="s">
+        <div class="s-title">Hamburger</div>
+        <div class="s-mod">+Ost 10 kr</div>
+        <div class="bhead"><span>Burger</span><span>Middag</span></div>
+        <div class="row2"><span class="r2n">100g</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>99</span><span class="r2v"><span class="kr">kr</span>139</span></div></div>
+        <div class="row2"><span class="r2n">160g</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>129</span><span class="r2v"><span class="kr">kr</span>159</span></div></div>
+        <div class="row2"><span class="r2n">190g</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>139</span><span class="r2v"><span class="kr">kr</span>174</span></div></div>
+        <div class="row2"><span class="r2n">250g</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>159</span><span class="r2v"><span class="kr">kr</span>189</span></div></div>
+        <div class="row2"><span class="r2n">Biffburger</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>159</span><span class="r2v"><span class="kr">kr</span>184</span></div></div>
+        <div class="row2"><span class="r2n">Fiskeburger</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>114</span><span class="r2v"><span class="kr">kr</span>139</span></div></div>
+        <div class="row2"><span class="r2n">Kyllingburger</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>119</span><span class="r2v"><span class="kr">kr</span>149</span></div></div>
+        <div class="row2"><span class="r2n">Løvstekburger</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>114</span><span class="r2v"><span class="kr">kr</span>164</span></div></div>
+      </div>
+    </div>
+
+    <!-- COL 3: Vegetar -->
+    <div>
+      <div class="s">
+        <div class="s-title veg">Vegetar</div>
+        <div class="sub">Falafel</div>
+        <div class="rs-head"><span>Med</span><span>Stor</span></div>
+        <div class="row2 veg"><span class="r2n">Falafel i pita</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>109</span><span class="r2v"><span class="kr">kr</span>139</span></div></div>
+        <div class="row2 veg"><span class="r2n">Falafel rull</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>119</span><span class="r2v"><span class="kr">kr</span>149</span></div></div>
+        <div class="row2 veg"><span class="r2n">Falafel middag</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>169</span><span class="r2v"><span class="kr">kr</span>199</span></div></div>
+        <div class="sub">Halloumi</div>
+        <div class="rs-head"><span>Med</span><span>Stor</span></div>
+        <div class="row2 veg"><span class="r2n">Halloumi rull</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>139</span><span class="r2v"><span class="kr">kr</span>169</span></div></div>
+        <div class="row2 veg"><span class="r2n">Halloumi middag</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>179</span><span class="r2v"><span class="kr">kr</span>209</span></div></div>
+        <div class="sub">Salat</div>
+        <div class="rs-head"><span>Med</span><span>Stor</span></div>
+        <div class="row2 veg"><span class="r2n">Salat</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>69</span><span class="r2v"><span class="kr">kr</span>119</span></div></div>
+        <div class="row2 veg"><span class="r2n">Halloumisalat</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>89</span><span class="r2v"><span class="kr">kr</span>139</span></div></div>
+        <div class="sub">Burger</div>
+        <div class="row1 veg"><span class="r1n">Vegetarburger</span><span class="r1v"><span class="kr">kr</span>119</span></div>
+        <div class="row1 veg"><span class="r1n">Halloumi burger</span><span class="r1v"><span class="kr">kr</span>139</span></div>
+        <div class="sub">Pizza</div>
+        <div class="row1 veg"><span class="r1n">Mozzarella</span><span class="r1size">40CM</span><span class="r1v"><span class="kr">kr</span>209</span></div>
+        <div class="row1 veg"><span class="r1n">Falafelpizza</span><span class="r1size">40CM</span><span class="r1v"><span class="kr">kr</span>249</span></div>
+        <div class="row1 veg"><span class="r1n">Halloumipizza</span><span class="r1size">40CM</span><span class="r1v"><span class="kr">kr</span>259</span></div>
+      </div>
+    </div>
+
+    <!-- COL 4: Pizza + Snacks -->
+    <div>
+      <div class="s">
+        <div class="s-title">Pizza</div>
+        <div class="pizza-row"><span class="pname">Pepperoni</span><span class="pprice"><span class="kr">kr</span>249</span></div>
+        <div class="pizza-row"><span class="pname">Kebab</span><span class="pprice"><span class="kr">kr</span>249</span></div>
+        <div class="pizza-row"><span class="pname">Döner</span><span class="pprice"><span class="kr">kr</span>269</span></div>
+        <div style="font-size:9px;color:var(--cream-dim);margin-top:4px;font-style:italic;">Alle 40cm · tomatsaus og ost</div>
+      </div>
+      <div class="s">
+        <div class="s-title">Snacks</div>
+        <div class="rs-head"><span>Liten</span><span>Stor</span></div>
+        <div class="row2"><span class="r2n">Fries</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>49</span><span class="r2v"><span class="kr">kr</span>74</span></div></div>
+        <div class="row2"><span class="r2n">Cheez Sticks</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>49</span><span class="r2v"><span class="kr">kr</span>74</span></div></div>
+        <div class="row2"><span class="r2n">Dirty Fries</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>59</span><span class="r2v"><span class="kr">kr</span>84</span></div></div>
+        <div class="row2"><span class="r2n">Chilli Cheese Tops</span><div class="r2p"><span class="r2v"><span class="kr">kr</span>59</span><span class="r2v"><span class="kr">kr</span>99</span></div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span class="badge"><span class="badge-label">+Kjøtt</span>49 kr</span>
+    <span class="badge"><span class="badge-label">+Saus</span>10 kr</span>
+    <span class="badge"><span class="badge-label">+Ost</span>10 kr</span>
+    <span style="font-size:9px;color:var(--cream-dim);letter-spacing:1px;">Alle priser inkl. mva</span>
+  </div>
+</div>
+</body>
+</html>
