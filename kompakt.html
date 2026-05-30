@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kolsås Kebab</title>
+  <style>
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #fff;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* ── OUTER WRAPPER ── */
+.menu {
+  width: 950px;
+  margin: 2em auto;
+  overflow: hidden;
+  color: #6b0a0a;
+  font-weight: bold;
+  font-size: 16px;
+  background: radial-gradient(ellipse at 50% 30%, #ffe84d 0%, #f5a020 55%, #d96010 100%);
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+}
+
+/* ── LOGO ── */
+.top {
+  text-align: center;
+  padding: 1.1em 1em 0.4em;
+  font-size: 3.2em;
+  letter-spacing: 0.02em;
+  font-style: italic;
+}
+.top img.logo {
+  height: 2.2em;
+  vertical-align: middle;
+  margin: 0 0.2em;
+  object-fit: contain;
+}
+
+/* ── CONTENT GRID ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start;
+  padding: 0.5em 0.6em 0.2em;
+  gap: 0 1em;
+}
+
+/* ── SECTION ── */
+.section {
+  display: flex;
+  flex-direction: column;
+  padding: 0.3em 0.4em 0.6em;
+  width: 100%;
+}
+
+.section h2 {
+  font-size: 1.7em;
+  line-height: 1em;
+  margin-bottom: 0.25em;
+  text-align: center;
+}
+
+.sub-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.8em;
+}
+
+.sub-section h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.25em;
+  text-align: center;
+}
+
+/* ── ITEM ROW ── */
+.item, .price-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  position: relative;
+  line-height: 1.5;
+  font-size: 0.95em;
+  width: 100%;
+}
+.price-header > span > span { padding: 0 0.5em 0 0;}
+.price-header.big > span > span { padding: 0 0.5em 0 0;}
+
+.item .name,
+.price-header span:first-child {
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+}
+
+.item .dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.35em;
+  border-bottom: 2px dotted rgba(107,10,10,0.45);
+}
+
+.item .prices,
+.price-header span:last-child {
+  display: flex;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.item .prices > .p {
+  padding: 0 0.5em;
+  text-align: right;
+}
+
+/* ── NOTE ── */
+.note {
+  font-size: 0.75em;
+  font-weight: 600;
+  margin-top: 0.4em;
+  color: #6b0a0a;
+  text-align: center;
+}
+
+/* ── PIZZA SECTION ── */
+.pizza {
+  padding: 0.5em 1em 0.8em;
+}
+
+.pizza h2 {
+  font-size: 1.7em;
+  line-height: 1em;
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+.pizza-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pizza-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0.2em 0.5em 0.2em;
+}
+
+.pizza-item .pizza-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  position: relative;
+  font-size: 0.95em;
+  line-height: 1.5;
+  width: 100%;
+}
+
+.pizza-item .pizza-name {
+  white-space: nowrap;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.pizza-item .pizza-name.vegan::after {
+  content: " 🌱";
+  font-size: 0.8em;
+}
+
+.pizza-item .dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.35em;
+  border-bottom: 2px dotted rgba(107,10,10,0.45);
+}
+
+.pizza-item .pizza-desc {
+  font-size: 0.72em;
+  font-weight: 400;
+  opacity: 0.8;
+  padding-left: 0.3em;
+}
+
+.pizza-item .pizza-price {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  font-size: 0.95em;
+}
+
+/* ── ADDONS BAR ── */
+.addons {
+  display: flex;
+  justify-content: center;
+  padding: 0.3em 1em 0.5em;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 1px 1px #000;
+}
+
+/* ── BOTTOM BAR ── */
+.bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 3.2em;
+  background: #7a0a0f;
+  color: #fff;
+}
+.bottom div {
+  display: flex;
+  align-items: center;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-style: normal;
+  gap: 0.35em;
+  padding: 0 0.7em;
+}
+.bottom div:last-child {
+  justify-content: flex-end;
+}
+.bottom img {
+  height: 1.3em;
+  object-fit: contain;
+}
+.bottom img.invert {
+  filter: brightness(0) invert(1);
+}
+
+  </style>
+</head>
+<body>
+
+<script>
+const MENU = {
+  rows: [
+    {
+      sections: [
+        {
+          title: "Kebab i pita",
+          columns: ["Medium", "Stor"],
+          items: [
+            { name: "Kebab",      prices: [99,  149] },
+            { name: "Kylling",    prices: [124, 164] },
+            { name: "Döner",      prices: [139, 189] },
+            { name: "Biff",       prices: [145, 190] },
+            { name: "Mix i pita", prices: [144, 174] }
+          ]
+        },
+        {
+          title: "Rullekebab",
+          columns: ["Medium", "Stor"],
+          items: [
+            { name: "Kebab",   prices: [124, 154] },
+            { name: "Kylling", prices: [139, 169] },
+            { name: "Döner",   prices: [149, 179] },
+            { name: "Biff",    prices: [149, 179] },
+            { name: "Mix",     prices: [149, 169] }
+          ],
+          note: "Ekstra kjøtt fra 49,- | Ekstra saus 10,-"
+        },
+        {
+          title: "Kebabmiddag",
+          columns: ["Medium", "Stor"],
+          items: [
+            { name: "Kebab",   prices: [159, 189] },
+            { name: "Kylling", prices: [174, 199] },
+            { name: "Döner",   prices: [189, 219] },
+            { name: "Biff",    prices: [189, 229] },
+            { name: "Mix",     prices: [184, 209] }
+          ]
+        }
+      ]
+    },
+    {
+      sections: [
+        {
+          title: "Hamburger",
+          columns: ["Burger", "Middag"],
+          items: [
+            { name: "100g",          prices: [99,  139] },
+            { name: "160g",          prices: [129, 159] },
+            { name: "190g",          prices: [139, 174] },
+            { name: "250g",          prices: [159, 189] },
+            { name: "Biffburger",    prices: [159, 184] },
+            { name: "Fiskeburger",   prices: [114, 139] },
+            { name: "Kyllingburger", prices: [119, 149] },
+            { name: "Løvstekburger", prices: [114, 164] }
+          ],
+          note: "Ost +10,-"
+        },
+        {
+          title: "Vegetar",
+          vegTitle: true,
+          columns: ["Medium", "Stor"],
+          items: [
+            { name: "Falafel i pita",  prices: [109, 139] },
+            { name: "Falafel rull",    prices: [119, 149] },
+            { name: "Falafel middag",  prices: [169, 199] },
+            { name: "Halloumi rull",   prices: [139, 169] },
+            { name: "Halloumi middag", prices: [179, 209] },
+            { name: "Salat",           prices: [69,  119] },
+            { name: "Halloumisalat",   prices: [89,  139] },
+            { name: "Vegetarburger",   prices: [119, null] },
+            { name: "Halloumi burger", prices: [139, null] }
+          ]
+        },
+        {
+          title: null,
+          isCombined: true,
+          subsections: [
+            {
+              title: "Snacks",
+              columns: ["Liten", "Stor"],
+              hideHeaders: true,
+              items: [
+                { name: "Fries",             prices: [49, 74] },
+                { name: "Cheez sticks",      prices: [49, 74] },
+                { name: "Dirty fries",       prices: [59, 84] },
+                { name: "Chilli Cheese tops",prices: [59, 99] }
+              ]
+            },
+            {
+              title: "Barnemeny",
+              columns: [null],
+              items: [
+                { name: "Kyllingnuggets med fries og kulsyre", prices: [129] }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  pizza: {
+    title: "Pizza (40cm)",
+    items: [
+      {
+        name: "Pepperoni",
+        description: "tomatsaus, ost, pepperoni og paprika",
+        price: 249,
+        vegan: false
+      },
+      {
+        name: "Kebab",
+        description: "tomatsaus, ost, kebabkjøtt, løk og mais",
+        price: 249,
+        vegan: false
+      },
+      {
+        name: "Döner",
+        description: "tomatsaus, ost, döner kjøtt, løk og mais",
+        price: 269,
+        vegan: false
+      },
+      {
+        name: "Mozzarella",
+        description: "tomatsaus, mozzarella og basilikum",
+        price: 209,
+        vegan: true
+      },
+      {
+        name: "Falafel",
+        description: "tomatsaus, ost, falafel, løk og paprika",
+        price: 249,
+        vegan: true
+      },
+      {
+        name: "Halloumi",
+        description: "tomatsaus, halloumi, løk og paprika",
+        price: 259,
+        vegan: true
+      }
+    ]
+  },
+  addons: "Gi oss din tilbakemelding på kolsoskebab@gmail.com",
+  footer: [
+    { img: "https://www.facebook.com/images/fb_icon_325x325.png",                             label: "Kolsås Kebab" },
+    { img: "https://upload.wikimedia.org/wikipedia/commons/6/6c/Phone_icon.png", invert: true, label: "90 90 30 48" }
+  ]
+};
+
+/* ── RENDER HELPERS ── */
+
+function priceStr(p) {
+  return p != null ? p + ',-' : '';
+}
+
+function buildItems(items, columns, hideHeaders) {
+  const singleCol = columns.length === 1 && columns[0] === null;
+  let html = '';
+
+  // column header row
+  if (!singleCol && !hideHeaders) {
+    const labels = columns.map(c => `<span>${c}</span>`).join('');
+    html += `<div class="price-header">
+      <span></span>
+      <span>${labels}</span>
+    </div>`;
+  }
+
+  items.forEach(item => {
+    const priceSpans = item.prices
+      .map(p => `<span class="p">${priceStr(p)}</span>`)
+      .join('');
+    html += `<div class="item">
+      <span class="name">${item.name}</span>
+      <span class="dots"></span>
+      <span class="prices">${priceSpans}</span>
+    </div>`;
+  });
+
+  return html;
+}
+
+function buildSection(sec) {
+  if (sec.isCombined) {
+    let html = `<div class="section snacks-cell">`;
+    sec.subsections.forEach(sub => {
+      html += `<div class="sub-section">
+        <h2>${sub.title}</h2>
+        ${buildItems(sub.items, sub.columns, sub.hideHeaders)}
+      </div>`;
+    });
+    html += `</div>`;
+    return html;
+  }
+
+  const title = sec.vegTitle
+    ? `${sec.title} <span style="font-size:0.8em">🌱</span>`
+    : sec.title;
+  const note = sec.note ? `<p class="note">${sec.note}</p>` : '';
+  return `<div class="section">
+    <h2>${title}</h2>
+    ${buildItems(sec.items, sec.columns, sec.hideHeaders)}
+    ${note}
+  </div>`;
+}
+
+function positionDots() {
+  const emSize = parseFloat(getComputedStyle(document.querySelector('.menu')).fontSize);
+  const leftGap = 0.2 * emSize;
+
+  // regular menu items
+  document.querySelectorAll('.item').forEach(item => {
+    const dots   = item.querySelector('.dots');
+    const name   = item.querySelector('.name');
+    const prices = item.querySelector('.prices');
+    if (!dots || !name || !prices) return;
+
+    const itemLeft  = item.getBoundingClientRect().left;
+    const nameRight = name.getBoundingClientRect().right;
+
+    const pSpans   = Array.from(prices.querySelectorAll('.p'));
+    const firstLen = pSpans.length > 0 ? pSpans[0].textContent.length : 0;
+    const colCount = pSpans.length;
+    const rightCorrection = colCount > 1 ? 1 : 0;
+
+    dots.style.left  = (nameRight - itemLeft + leftGap) + 'px';
+    dots.style.right = (firstLen * colCount + rightCorrection) + 'ch';
+  });
+
+  // pizza rows
+  document.querySelectorAll('.pizza-row').forEach(row => {
+    const dots  = row.querySelector('.dots');
+    const name  = row.querySelector('.pizza-name');
+    const price = row.querySelector('.pizza-price');
+    if (!dots || !name || !price) return;
+
+    const rowLeft   = row.getBoundingClientRect().left;
+    const nameRight = name.getBoundingClientRect().right;
+    const charCount = price.textContent.length;
+
+    dots.style.left  = (nameRight - rowLeft + leftGap) + 'px';
+    dots.style.right = charCount + 'ch';
+  });
+}
+
+function buildPizza() {
+  const items = MENU.pizza.items.map(item => {
+    const veganClass = item.vegan ? ' vegan' : '';
+    return `<div class="pizza-item">
+      <div class="pizza-row">
+        <span class="pizza-name${veganClass}">${item.name}</span>
+        <span class="dots"></span>
+        <span class="pizza-price">${item.price},-</span>
+      </div>
+      <span class="pizza-desc">${item.description}</span>
+    </div>`;
+  }).join('');
+  return `<div class="pizza">
+    <h2>${MENU.pizza.title}</h2>
+    <div class="pizza-items">${items}</div>
+  </div>`;
+}
+
+function render() {
+  const menu = document.querySelector('div.menu');
+
+  // Logo
+  menu.innerHTML = `<div class="top">
+    Kolsås <img class="logo" src="Images/logo.png" /> Kebab
+  </div>`;
+
+  // All sections in one flat 3-column grid
+  const allSections = MENU.rows
+    .flatMap(row => row.sections)
+    .map(buildSection)
+    .join('');
+  menu.innerHTML += `<div class="grid">${allSections}</div>`;
+
+  // Pizza full-width section
+  menu.innerHTML += buildPizza();
+
+  // Addons
+  menu.innerHTML += `<div class="addons"><p>${MENU.addons}</p></div>`;
+
+  // Footer
+  const footerDivs = MENU.footer.map(f => {
+    const cls = f.invert ? ' class="invert"' : '';
+    return `<div><img src="${f.img}"${cls} /><p>${f.label}</p></div>`;
+  }).join('');
+  menu.innerHTML += `<div class="bottom">${footerDivs}</div>`;
+
+  positionDots();
+}
+
+document.addEventListener('DOMContentLoaded', render);
+</script>
+
+  <div class="menu"></div>
+
+</body>
+</html>
